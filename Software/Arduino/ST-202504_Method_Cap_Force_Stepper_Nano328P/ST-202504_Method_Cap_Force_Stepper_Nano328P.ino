@@ -19,10 +19,19 @@
 #define SW1     10 //D10
 #define SW2     9 //D9
 
+enum 
+{
+  STANDBY = 0,
+  CYCLE_START,
+  CYCLE_COUNT,
+  CYCLE_STOP
+} STATES;
+
 String inputString = "";         // a String to hold incoming data
 bool flgStringComplete = false;  // whether the string is complete
 bool flgMoveMotor = false;
-int activeDirection = 0, oldSW1, oldSW2, newSW1;
+int activeDirection = 1, oldSW1, oldSW2, newSW1;
+int stateActive = STANDBY;
 
 
 void isrSW1()
@@ -71,6 +80,8 @@ void setup() {
 
   pinMode(SW1, INPUT_PULLUP);
   pinMode(SW2, INPUT_PULLUP);
+
+  digitalWrite(EN, 1);
 
   // attachInterrupt(digitalPinToInterrupt(SW1), isrSW1, CHANGE);
   //  attachInterrupt(digitalPinToInterrupt(SW2), isrSW2, CHANGE);
@@ -144,7 +155,11 @@ void loop()
     if (inputString == "s") {
       flgMoveMotor = false;
     }
-
+    
+    if (inputString == "c") {
+      flgMoveMotor = false;
+    }
+    
     // clear the string:
     inputString = "";
     flgStringComplete = false;
@@ -156,6 +171,7 @@ void move_stepper(int stepper, int direction)
 {
   int i;
   digitalWrite(EN, 0);
+  
   if (stepper == 1)
   {
     //Serial.println("motor1  ");
@@ -164,12 +180,12 @@ void move_stepper(int stepper, int direction)
     for (i = 0; i < 10000; i++)
       //   while ((digitalRead(SW1) == oldSW1) && (digitalRead(SW2) == oldSW2))
     {
-      delayMicroseconds(13);
+      delayMicroseconds(50);
       if (digitalRead(SW1) != oldSW1)
         break;
       digitalWrite(STEP1, 1);
 
-      delayMicroseconds(13);
+      delayMicroseconds(50);
       if (digitalRead(SW2) != oldSW2)
         break;
       digitalWrite(STEP1, 0);
