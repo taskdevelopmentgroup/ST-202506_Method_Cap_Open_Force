@@ -1,7 +1,9 @@
 /*
-  Stepper Driver MOD
+  ST-202504_Method_Cap_Force_Stepper_Nano328P
 
   Arduino Nano328P
+
+  Development board CNC
 */
 
 #define EN      8  //11 //PB0 //D8
@@ -18,7 +20,8 @@
 #define SW2     9 //D9
 
 String inputString = "";         // a String to hold incoming data
-bool stringComplete = false;  // whether the string is complete
+bool flgStringComplete = false;  // whether the string is complete
+bool flgMoveMotor = false;
 int activeDirection = 0, oldSW1, oldSW2, newSW1;
 
 
@@ -72,7 +75,6 @@ void setup() {
   // attachInterrupt(digitalPinToInterrupt(SW1), isrSW1, CHANGE);
   //  attachInterrupt(digitalPinToInterrupt(SW2), isrSW2, CHANGE);
 
-
   // attachInterrupt(SW1, isrSW1, CHANGE);
   // attachInterrupt(SW2, isrSW2, CHANGE);
 
@@ -89,8 +91,6 @@ void setup() {
 // the loop function runs over and over again forever
 void loop()
 {
-
-
   //  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
   //  delay(100);                       // wait for a second
   //  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
@@ -105,7 +105,11 @@ void loop()
   //  digitalWrite(EN, LOW);    // turn the LED off by making the voltage LOW
   //  delay(1);
 
-  move_stepper(1, activeDirection);
+  if (flgMoveMotor)
+  {
+    move_stepper(1, activeDirection);
+    flgMoveMotor = false;
+  }
 
   if (digitalRead(SW1) != oldSW1)
   {
@@ -126,11 +130,24 @@ void loop()
   }
 
   // print the string when a newline arrives:
-  if (stringComplete) {
+  if (flgStringComplete) {
     Serial.println(inputString);
+
+    if (inputString == "1") {
+      activeDirection = !activeDirection;
+    }
+
+    if (inputString == "g") {
+      flgMoveMotor = true;
+    }
+
+    if (inputString == "s") {
+      flgMoveMotor = false;
+    }
+
     // clear the string:
     inputString = "";
-    stringComplete = false;
+    flgStringComplete = false;
   }
 
 }
@@ -144,7 +161,7 @@ void move_stepper(int stepper, int direction)
     //Serial.println("motor1  ");
     digitalWrite(DIR1, direction);
     digitalWrite(STEP1, 0);
-    for (i = 0; i < 100000; i++)
+    for (i = 0; i < 10000; i++)
       //   while ((digitalRead(SW1) == oldSW1) && (digitalRead(SW2) == oldSW2))
     {
       delayMicroseconds(13);
@@ -196,15 +213,17 @@ void move_stepper(int stepper, int direction)
   delay response. Multiple bytes of data may be available.
 */
 void serialEvent() {
-  while (Serial.available()) {
+  while (Serial.available())
+  {
     // get the new byte:
     char inChar = (char)Serial.read();
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline, set a flag so the main loop can
-    // do something about it:
     if (inChar == '\n') {
-      stringComplete = true;
+      // if the incoming character is a newline, set a flag so the main loop can
+      // do something about it:
+      flgStringComplete = true;
+    } else {
+      // add it to the inputString:
+      inputString += inChar;
     }
   }
 }
