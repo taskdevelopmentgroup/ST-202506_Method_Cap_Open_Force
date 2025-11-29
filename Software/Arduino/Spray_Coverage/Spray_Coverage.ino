@@ -255,7 +255,7 @@ void loop() {
         if (digitalRead(CARRIAGE_JOG_UP) == LOW)
         {
           digitalWrite(ENABLE, 0);
-          digitalWrite(CARRIAGE_DIR, DIR_RT);
+          digitalWrite(CARRIAGE_DIR, DIR_UP);
           currentState = STATE_CARRIAGE_PB_JOG_UP_CNT;
         }
         else

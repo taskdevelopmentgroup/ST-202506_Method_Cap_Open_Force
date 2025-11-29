@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ST-202505_Method_Cap_Force", "ST-202505_Method_Cap_Force\ST-202505_Method_Cap_Force.vbproj", "{60A8D0FB-13A6-421C-8504-72796BBF8A83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60A8D0FB-13A6-421C-8504-72796BBF8A83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A8D0FB-13A6-421C-8504-72796BBF8A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A8D0FB-13A6-421C-8504-72796BBF8A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A8D0FB-13A6-421C-8504-72796BBF8A83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {180F5EE0-9C06-484E-A90A-F2F4BEF8F849}
+	EndGlobalSection
+EndGlobal
