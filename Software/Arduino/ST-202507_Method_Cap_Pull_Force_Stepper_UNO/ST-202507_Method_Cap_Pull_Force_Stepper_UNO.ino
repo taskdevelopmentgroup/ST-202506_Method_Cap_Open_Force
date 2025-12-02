@@ -6,8 +6,8 @@
 */
 
 
-#define SPEED_CARRIAGE_US       300 // microsecond delay in step  2sec/ft
-#define SPEED_CARRIAGE_JOG_US   300 // microsecond delay in step
+#define SPEED_CARRIAGE_US       400 // microsecond delay in step  2sec/ft
+#define SPEED_CARRIAGE_JOG_US   400 // microsecond delay in step
 
 #define SERIAL_CMD_JOG_CNT      200;  // how far to jog when serial command is recvd
 #define STATE_CARRIAGE_TIMEOUT_CNT  1000  // max count that a carriage state will run untilautomatically moving to next state
@@ -58,11 +58,99 @@ typedef enum {
 
   NUM_OF_STATES
 } STATE_SYSTEM;
-STATE_SYSTEM currentState = STATE_WAIT_FOR_START;
+STATE_SYSTEM currentState = STATE_STATUS;//STATE_WAIT_FOR_START;
 
 int incomingByte = 0; // for incoming serial data
 uint16_t stateCnt = 0;//STATE_SPRAY_TIMEOUT_CNT;
 unsigned long lastMillis;
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+#define ON  1
+#define OFF 0
+#define DIRECTION_EXTEND 3
+#define DIRECTION_RETRACT 2
+#define DIRECTION_STOP 0
+
+#define CNT_LOCKUP_TIMEOUT 10 // time out to prevent code lock when destination cannot be reached. 
+#define CNT_FOR_TEST_EXTEND_STATE 1   // number of state machine cycles to use for test extend duration
+#define CNT_FOR_TEST_RETRACT_STATE 1  // number of state machine cycles to use for test retract duration
+
+#define MAX_NUM_OF_CYCLES        9999
+#define MAX_SEC_CYCLE_HOLD       9999
+#define MAX_SEC_CYCLE_HOME_HOLD  9999
+
+#define CNT_TIMEOUT 1000
+
+
+String inputString = "";         // a string to hold incoming data
+boolean flgFlashValChange = false;  // whether the flash values have changed
+boolean flgUpdateDisplay = false;
+boolean flgUpdateDisplayDistance = false;
+boolean flgFindTargetLocation = false;
+boolean flgFoundTargetLocation = false;
+boolean flgWaitRunningNotificationChange = false;
+boolean flgWaitRunningNotificationStatus = false;
+boolean flgWaitHoldingSqueezeNotificationChange = false;
+boolean flgWaitHoldingSqueezeNotificationStatus = false;
+boolean flgWaitHoldingHomeNotificationChange = false;
+boolean flgWaitHoldingHomeNotificationStatus = false;
+boolean flgCycleCountChange = false;
+boolean flgCycleRunningChange = false;
+boolean flgCycleRunningStatus = false;
+boolean flgTimeOutErrorChange = false;
+boolean flgTimeOutErrorStatus = false;
+boolean flgLimitErrorChange = false;
+boolean flgLimitErrorStatus = false;
+boolean flgTestFlashing = true;
+boolean flgUpdateui500ms = false;
+boolean flgWaitHoldCountChange = false;
+
+//unsigned int driveDirection = DIRECTION_STOP;
+int cntActiveState;
+unsigned int cntActiveCycles;
+unsigned int cntConnection = 0;
+
+int cycleHomeHoldTime_sec = 3;  //default
+int cycleHoldTime_sec = 2; //default
+uint16_t numOfCycles = 5;  // default
+uint16_t cycleHomeA2D = 94;  // default
+uint16_t cycleA2D = 58;// default
+uint16_t fullRetractedA2D = 129; // default  // A2D reading where 90mmis at retracted position
+uint16_t fullExtendedA2D = 22; // default  // A2D reading where 0mm is at extended position
+int cycleOffsetGoal = 5;
+int rateOfMovement = 9;  // 1 - 9 where 1 is slowest and 9 is full on
+boolean flgShowDebugMessages = true;
+boolean flgDirectDriveToTarget = false;
+unsigned int directDriveRange = 2;  // +/- A2D range to find loaction target in
+unsigned int unitSerialNumber = 0;
+
+int rateOfMovementCnt = 0;
+
+char strUnitSerialNumber[10] = "SN:0000";
+int cycleMappedFromHome;  // cycle A2D value mapped to  mm from home location
+int cycleMappedFull;  // cycle A2D value mapped to full mm
+int cycleHomeMappedFull;  //home A2D value mapped to full mm
+//int ActiveState = DRIVE_OFF_STATE;
+//unsigned long cntNoLockup = CNT_LOCKUP_TIMEOUT;
+uint32_t lastCheck = 0;
+//uint32_t ui_lastCheck = 0;
+//uint32_t ui_lastErrorCheck = 0;
+
+//byte Rcnt = 0;
+//char BTInChar[10];
+uint16_t sensorValue = 0;        // value read from the pot
+int locationValue  = 0;
+uint16_t targetSensorValue = 0xFFFF;
+uint16_t sensorValueLast = 0;    // save the last reading from the pot
+uint16_t outputValue = 0;        // value output to the PWM (analog out)
+int lastValue = 0;
+int lastValueCnt = 0;// CNT_TIMEOUT;
+
+bool flgUpperDetected = false;
+bool flgLowerDetected = false;
+bool flgPumpOn = false;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void setup() {
   Serial.begin(115200);
@@ -92,12 +180,12 @@ void loop() {
   {
     case STATE_STATUS:
       digitalWrite(ENABLE, 1);
-
-      while (Serial.available())
-      {
-        incomingByte = Serial.read();
-      }
-
+      /*
+            while (Serial.available())
+            {
+              incomingByte = Serial.read();
+            }
+      */
       Serial.println("\r\nStatus:");
       Serial.print("\t Carriage Down Stop Sensor (brown wire): "); Serial.println(digitalRead(CARRIAGE_STOP_DN));
       Serial.print("\t Carriage Up Stop Sensor (blue wire): "); Serial.println(digitalRead(CARRIAGE_STOP_UP));
@@ -108,8 +196,14 @@ void loop() {
       Serial.print("\t Current State : "); Serial.println(currentState);
 
       Serial.println(); Serial.println("Send Any key to exit status loop");
-      delay(1000);
-      while ((Serial.available()) && (--stateCnt > 0))
+
+      Serial.print("?,");
+      Serial.print(numOfCycles, DEC); Serial.print(",");
+      Serial.println("?");
+
+      //delay(1000);
+
+      //while ((Serial.available()) && (--stateCnt > 0))
       {
         incomingByte = Serial.read();
         Serial.println(incomingByte);
@@ -122,41 +216,46 @@ void loop() {
 
     case STATE_WAIT_FOR_START:
       digitalWrite(ENABLE, 1);
+      /*
+            while (Serial.available())
+            {
+              incomingByte = Serial.read();
+              Serial.println(incomingByte);
 
-      while (Serial.available())
-      {
-        incomingByte = Serial.read();
-        Serial.println(incomingByte);
+              if (incomingByte == '?')
+                currentState = STATE_STATUS;
 
-        if (incomingByte == '?')
-          currentState = STATE_STATUS;
+              if (incomingByte == '>')
+              {
+                Serial.println("Carriage jog down (from serial cmd '>' )");
+                currentState = STATE_CARRIAGE_SERIAL_JOG_DN_START;
+              }
 
-        if (incomingByte == '>')
-        {
-          Serial.println("Carriage jog down (from serial cmd '>' )");
-          currentState = STATE_CARRIAGE_SERIAL_JOG_DN_START;
-        }
+              if (incomingByte == '<')
+              {
+                Serial.println("Carriage jog up (from serial cmd '<' )");
+                currentState = STATE_CARRIAGE_SERIAL_JOG_UP_START;
+              }
 
-        if (incomingByte == '<')
-        {
-          Serial.println("Carriage jog up (from serial cmd '<' )");
-          currentState = STATE_CARRIAGE_SERIAL_JOG_UP_START;
-        }
+              if (incomingByte == 'c')
+              {
+                Serial.println("Carriage Cycle Start (from serial cmd 'c' )");
+                currentState = STATE_CARRIAGE_START;
+                stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
+                Serial.println("Going to Start Carriage Cycle");
+              }
+            }
+      */
+      serialEvent();
 
-        if (incomingByte == 'c')
-        {
-          Serial.println("Carriage Cycle Start (from serial cmd 'c' )");
-          currentState = STATE_CARRIAGE_START;
-          stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
-          Serial.println("Going to Start Carriage Cycle");
-        }
-      }
+
+
 
       if (digitalRead(START_SWITCH) == LOW)
       {
         currentState = STATE_CARRIAGE_START;
         stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
-        Serial.println("Going to Start Carriage Cycle");
+        Serial.println("Test Starting - Going to Start Carriage Cycle");
       }
 
       if (digitalRead(CARRIAGE_JOG_DN) == LOW)
@@ -188,6 +287,7 @@ void loop() {
           Serial.println("TIMEOUT REACHED - Carriage Up sensor never went HIGH (open)");
         currentState = STATE_CARRIAGE_TO_END_SW;
         stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
+        Serial.println("CLR");
         Serial.println("Going to Move Carriage to Up Position");
       }
       break;
@@ -239,9 +339,23 @@ void loop() {
       {
         if (stateCnt == 0)
           Serial.println("TIMEOUT REACHED - Carriage Down sensor never went LOW (blocked)");
-        currentState = STATE_WAIT_FOR_START;
-        stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
-        Serial.println("Going to wait for start button");
+
+        Serial.println("?PT");
+        Serial.print("Test ");  Serial.print(cntActiveCycles+1 , DEC); Serial.print("/"); Serial.println(numOfCycles);
+        if (++cntActiveCycles < numOfCycles )  //keep going
+        {
+          currentState = STATE_CARRIAGE_START;
+          stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
+          Serial.print("Cycles Left:"); Serial.println(numOfCycles-cntActiveCycles, DEC);
+          Serial.println("Going to Start Carriage Cycle");
+        }
+        else // test cycle complete
+        {       
+          currentState = STATE_WAIT_FOR_START;
+          stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
+          Serial.println("Complete !");
+          Serial.println("Going to wait for start button");
+        }
       }
       break;
 
