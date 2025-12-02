@@ -23,9 +23,9 @@ Partial Class frmSqueezer
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSqueezer))
         Me.tmrSerialPortScan = New System.Windows.Forms.Timer(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
@@ -69,6 +69,8 @@ Partial Class frmSqueezer
         Me.setCycleHome = New System.Windows.Forms.Button()
         Me.btnSetCycle = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtMARK10Units = New System.Windows.Forms.TextBox()
         Me.btnMARK10Clear = New System.Windows.Forms.Button()
@@ -158,21 +160,6 @@ Partial Class frmSqueezer
         Me.SerialPort2 = New System.IO.Ports.SerialPort(Me.components)
         Me.tmrMARK10Data = New System.Windows.Forms.Timer(Me.components)
         Me.SaveFileMARK10 = New System.Windows.Forms.SaveFileDialog()
-        Me.pnlCamera = New System.Windows.Forms.Panel()
-        Me.txtbxProjectFileName = New System.Windows.Forms.TextBox()
-        Me.lblProjectFileName = New System.Windows.Forms.Label()
-        Me.lblWorkingDirectory = New System.Windows.Forms.Label()
-        Me.rdobtnRecording = New System.Windows.Forms.RadioButton()
-        Me.btnSavePhoto = New System.Windows.Forms.Button()
-        Me.btnStopRecord = New System.Windows.Forms.Button()
-        Me.btnStartRecord = New System.Windows.Forms.Button()
-        Me.btnOverlay = New System.Windows.Forms.Button()
-        Me.lnkWorkingDirectory = New System.Windows.Forms.LinkLabel()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.cmbxCameraVideoCapabilties = New System.Windows.Forms.ComboBox()
-        Me.cmbxCameraList = New System.Windows.Forms.ComboBox()
-        Me.pbxCameraLive = New System.Windows.Forms.PictureBox()
         Me.tmrSavePhoto = New System.Windows.Forms.Timer(Me.components)
         Me.SaveFilePhoto = New System.Windows.Forms.SaveFileDialog()
         Me.baseImageOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
@@ -181,8 +168,14 @@ Partial Class frmSqueezer
         Me.recordSaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.FolderBrowserDialog = New System.Windows.Forms.FolderBrowserDialog()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.lblWorkingDirectory = New System.Windows.Forms.Label()
+        Me.txtbxProjectFileName = New System.Windows.Forms.TextBox()
+        Me.cmbxCameraList = New System.Windows.Forms.ComboBox()
+        Me.cmbxCameraVideoCapabilties = New System.Windows.Forms.ComboBox()
+        Me.pbxCameraLive = New System.Windows.Forms.PictureBox()
+        Me.rdobtnRecording = New System.Windows.Forms.RadioButton()
+        Me.chkbxPeakTension = New System.Windows.Forms.CheckBox()
+        Me.lnkWorkingDirectory = New System.Windows.Forms.LinkLabel()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -198,7 +191,6 @@ Partial Class frmSqueezer
         Me.TabPage2.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.pnlCamera.SuspendLayout()
         CType(Me.pbxCameraLive, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -318,7 +310,6 @@ Partial Class frmSqueezer
         Me.btnStop.Text = "Stop"
         Me.ToolTip1.SetToolTip(Me.btnStop, "Stop the Test Cycle")
         Me.btnStop.UseVisualStyleBackColor = True
-        Me.btnStop.Visible = False
         '
         'Label4
         '
@@ -382,7 +373,7 @@ Partial Class frmSqueezer
         Me.btnStartCycle.Name = "btnStartCycle"
         Me.btnStartCycle.Size = New System.Drawing.Size(98, 36)
         Me.btnStartCycle.TabIndex = 112
-        Me.btnStartCycle.Tag = "c"
+        Me.btnStartCycle.Tag = "k"
         Me.btnStartCycle.Text = "Start Cycle"
         Me.ToolTip1.SetToolTip(Me.btnStartCycle, "Start the Test Cycle")
         Me.btnStartCycle.UseVisualStyleBackColor = True
@@ -670,6 +661,26 @@ Partial Class frmSqueezer
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "MARK-10 Interface Settings"
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(61, 110)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(42, 23)
+        Me.Button3.TabIndex = 189
+        Me.Button3.Tag = "*"
+        Me.Button3.Text = "Clr"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(6, 109)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(49, 24)
+        Me.Button1.TabIndex = 188
+        Me.Button1.Tag = "?"
+        Me.Button1.Text = "Querry"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Label14
         '
         Me.Label14.AutoSize = True
@@ -946,19 +957,19 @@ Partial Class frmSqueezer
         '
         'chrtMARK10
         '
-        ChartArea5.Name = "MARK10ChartArea"
-        Me.chrtMARK10.ChartAreas.Add(ChartArea5)
-        Legend5.Enabled = False
-        Legend5.Name = "Legend1"
-        Me.chrtMARK10.Legends.Add(Legend5)
+        ChartArea1.Name = "MARK10ChartArea"
+        Me.chrtMARK10.ChartAreas.Add(ChartArea1)
+        Legend1.Enabled = False
+        Legend1.Name = "Legend1"
+        Me.chrtMARK10.Legends.Add(Legend1)
         Me.chrtMARK10.Location = New System.Drawing.Point(4, 2)
         Me.chrtMARK10.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtMARK10.Name = "chrtMARK10"
-        Series5.ChartArea = "MARK10ChartArea"
-        Series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series5.Legend = "Legend1"
-        Series5.Name = "Force"
-        Me.chrtMARK10.Series.Add(Series5)
+        Series1.ChartArea = "MARK10ChartArea"
+        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series1.Legend = "Legend1"
+        Series1.Name = "Force"
+        Me.chrtMARK10.Series.Add(Series1)
         Me.chrtMARK10.Size = New System.Drawing.Size(380, 197)
         Me.chrtMARK10.TabIndex = 12
         Me.chrtMARK10.Text = "MARK10 Chart"
@@ -1040,6 +1051,7 @@ Partial Class frmSqueezer
         Me.lnk_CycleHoldTime.TabStop = True
         Me.lnk_CycleHoldTime.Text = "waiting"
         Me.ToolTip1.SetToolTip(Me.lnk_CycleHoldTime, "Squeeze Position Hold Time in Test")
+        Me.lnk_CycleHoldTime.Visible = False
         '
         'lnk_NumOfCycles
         '
@@ -1090,6 +1102,7 @@ Partial Class frmSqueezer
         Me.lnk_CycleHomeHoldTime.TabStop = True
         Me.lnk_CycleHomeHoldTime.Text = "waiting"
         Me.ToolTip1.SetToolTip(Me.lnk_CycleHomeHoldTime, "Home Position Hold Time in Test")
+        Me.lnk_CycleHomeHoldTime.Visible = False
         '
         'lbl_Running
         '
@@ -1124,7 +1137,7 @@ Partial Class frmSqueezer
         Me.btn_StartCycle.Name = "btn_StartCycle"
         Me.btn_StartCycle.Size = New System.Drawing.Size(150, 150)
         Me.btn_StartCycle.TabIndex = 5
-        Me.btn_StartCycle.Tag = "c"
+        Me.btn_StartCycle.Tag = "k"
         Me.btn_StartCycle.Text = "START"
         Me.ToolTip1.SetToolTip(Me.btn_StartCycle, "Start the Test Squeeze Cycle")
         Me.btn_StartCycle.UseVisualStyleBackColor = True
@@ -1148,6 +1161,7 @@ Partial Class frmSqueezer
         Me.Label25.Size = New System.Drawing.Size(274, 24)
         Me.Label25.TabIndex = 8
         Me.Label25.Text = "Hold Time at Squeeze Position:"
+        Me.Label25.Visible = False
         '
         'Label24
         '
@@ -1158,6 +1172,7 @@ Partial Class frmSqueezer
         Me.Label24.Size = New System.Drawing.Size(250, 24)
         Me.Label24.TabIndex = 7
         Me.Label24.Text = "Hold Time at Home Position:"
+        Me.Label24.Visible = False
         '
         'Label18
         '
@@ -1167,7 +1182,7 @@ Partial Class frmSqueezer
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(600, 23)
         Me.Label18.TabIndex = 4
-        Me.Label18.Text = "ST-202405_MTBC_Bottle_Squeezer Tester"
+        Me.Label18.Text = "ST-202505_Method_Cap_Pull_Force"
         Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lbl_Squeezer
@@ -1212,6 +1227,7 @@ Partial Class frmSqueezer
         Me.lnk_Distance.Text = "wait"
         Me.lnk_Distance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.ToolTip1.SetToolTip(Me.lnk_Distance, "Distance from Home in Millimeters")
+        Me.lnk_Distance.Visible = False
         '
         'Label22
         '
@@ -1221,6 +1237,7 @@ Partial Class frmSqueezer
         Me.Label22.TabIndex = 5
         Me.Label22.Text = "mm"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label22.Visible = False
         '
         'Label21
         '
@@ -1230,6 +1247,7 @@ Partial Class frmSqueezer
         Me.Label21.TabIndex = 5
         Me.Label21.Text = "Distance From Home"
         Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label21.Visible = False
         '
         'btn_SetSqueeze
         '
@@ -1735,155 +1753,6 @@ Partial Class frmSqueezer
         Me.SaveFileMARK10.Filter = "Excel Text Files|*.CSV|All Files|*.*"
         Me.SaveFileMARK10.RestoreDirectory = True
         '
-        'pnlCamera
-        '
-        Me.pnlCamera.Controls.Add(Me.txtbxProjectFileName)
-        Me.pnlCamera.Controls.Add(Me.lblProjectFileName)
-        Me.pnlCamera.Controls.Add(Me.lblWorkingDirectory)
-        Me.pnlCamera.Controls.Add(Me.rdobtnRecording)
-        Me.pnlCamera.Controls.Add(Me.btnSavePhoto)
-        Me.pnlCamera.Controls.Add(Me.btnStopRecord)
-        Me.pnlCamera.Controls.Add(Me.btnStartRecord)
-        Me.pnlCamera.Controls.Add(Me.btnOverlay)
-        Me.pnlCamera.Controls.Add(Me.lnkWorkingDirectory)
-        Me.pnlCamera.Controls.Add(Me.Label33)
-        Me.pnlCamera.Controls.Add(Me.Label32)
-        Me.pnlCamera.Controls.Add(Me.cmbxCameraVideoCapabilties)
-        Me.pnlCamera.Controls.Add(Me.cmbxCameraList)
-        Me.pnlCamera.Location = New System.Drawing.Point(1045, 513)
-        Me.pnlCamera.Name = "pnlCamera"
-        Me.pnlCamera.Size = New System.Drawing.Size(673, 108)
-        Me.pnlCamera.TabIndex = 152
-        '
-        'txtbxProjectFileName
-        '
-        Me.txtbxProjectFileName.Location = New System.Drawing.Point(17, 28)
-        Me.txtbxProjectFileName.Name = "txtbxProjectFileName"
-        Me.txtbxProjectFileName.Size = New System.Drawing.Size(321, 20)
-        Me.txtbxProjectFileName.TabIndex = 18
-        Me.txtbxProjectFileName.Text = "Need_Project_File_Name"
-        '
-        'lblProjectFileName
-        '
-        Me.lblProjectFileName.AutoSize = True
-        Me.lblProjectFileName.Location = New System.Drawing.Point(14, 9)
-        Me.lblProjectFileName.Name = "lblProjectFileName"
-        Me.lblProjectFileName.Size = New System.Drawing.Size(98, 13)
-        Me.lblProjectFileName.TabIndex = 17
-        Me.lblProjectFileName.Text = "Project / File Name"
-        '
-        'lblWorkingDirectory
-        '
-        Me.lblWorkingDirectory.AutoSize = True
-        Me.lblWorkingDirectory.Location = New System.Drawing.Point(14, 80)
-        Me.lblWorkingDirectory.Name = "lblWorkingDirectory"
-        Me.lblWorkingDirectory.Size = New System.Drawing.Size(45, 13)
-        Me.lblWorkingDirectory.TabIndex = 15
-        Me.lblWorkingDirectory.Text = "Label35"
-        '
-        'rdobtnRecording
-        '
-        Me.rdobtnRecording.AutoSize = True
-        Me.rdobtnRecording.Enabled = False
-        Me.rdobtnRecording.Location = New System.Drawing.Point(536, 0)
-        Me.rdobtnRecording.Name = "rdobtnRecording"
-        Me.rdobtnRecording.Size = New System.Drawing.Size(94, 17)
-        Me.rdobtnRecording.TabIndex = 13
-        Me.rdobtnRecording.TabStop = True
-        Me.rdobtnRecording.Text = "Camera Active"
-        Me.rdobtnRecording.UseVisualStyleBackColor = True
-        '
-        'btnSavePhoto
-        '
-        Me.btnSavePhoto.Location = New System.Drawing.Point(358, 34)
-        Me.btnSavePhoto.Name = "btnSavePhoto"
-        Me.btnSavePhoto.Size = New System.Drawing.Size(75, 23)
-        Me.btnSavePhoto.TabIndex = 12
-        Me.btnSavePhoto.Text = "Save Photo"
-        Me.btnSavePhoto.UseVisualStyleBackColor = True
-        '
-        'btnStopRecord
-        '
-        Me.btnStopRecord.Location = New System.Drawing.Point(439, 36)
-        Me.btnStopRecord.Name = "btnStopRecord"
-        Me.btnStopRecord.Size = New System.Drawing.Size(75, 23)
-        Me.btnStopRecord.TabIndex = 11
-        Me.btnStopRecord.Text = "Stop Record"
-        Me.btnStopRecord.UseVisualStyleBackColor = True
-        '
-        'btnStartRecord
-        '
-        Me.btnStartRecord.Location = New System.Drawing.Point(439, 4)
-        Me.btnStartRecord.Name = "btnStartRecord"
-        Me.btnStartRecord.Size = New System.Drawing.Size(75, 23)
-        Me.btnStartRecord.TabIndex = 10
-        Me.btnStartRecord.Text = "Start Record"
-        Me.btnStartRecord.UseVisualStyleBackColor = True
-        '
-        'btnOverlay
-        '
-        Me.btnOverlay.Location = New System.Drawing.Point(358, 3)
-        Me.btnOverlay.Name = "btnOverlay"
-        Me.btnOverlay.Size = New System.Drawing.Size(75, 23)
-        Me.btnOverlay.TabIndex = 9
-        Me.btnOverlay.Text = "Overlay"
-        Me.btnOverlay.UseVisualStyleBackColor = True
-        '
-        'lnkWorkingDirectory
-        '
-        Me.lnkWorkingDirectory.AutoSize = True
-        Me.lnkWorkingDirectory.Location = New System.Drawing.Point(14, 60)
-        Me.lnkWorkingDirectory.Name = "lnkWorkingDirectory"
-        Me.lnkWorkingDirectory.Size = New System.Drawing.Size(92, 13)
-        Me.lnkWorkingDirectory.TabIndex = 5
-        Me.lnkWorkingDirectory.TabStop = True
-        Me.lnkWorkingDirectory.Text = "Working Directory"
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(533, 68)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(62, 13)
-        Me.Label33.TabIndex = 4
-        Me.Label33.Text = "Frame Size "
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(533, 23)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(77, 13)
-        Me.Label32.TabIndex = 3
-        Me.Label32.Text = "Camera to Use"
-        '
-        'cmbxCameraVideoCapabilties
-        '
-        Me.cmbxCameraVideoCapabilties.FormattingEnabled = True
-        Me.cmbxCameraVideoCapabilties.Location = New System.Drawing.Point(536, 84)
-        Me.cmbxCameraVideoCapabilties.Name = "cmbxCameraVideoCapabilties"
-        Me.cmbxCameraVideoCapabilties.Size = New System.Drawing.Size(121, 21)
-        Me.cmbxCameraVideoCapabilties.TabIndex = 2
-        '
-        'cmbxCameraList
-        '
-        Me.cmbxCameraList.FormattingEnabled = True
-        Me.cmbxCameraList.Location = New System.Drawing.Point(536, 39)
-        Me.cmbxCameraList.Name = "cmbxCameraList"
-        Me.cmbxCameraList.Size = New System.Drawing.Size(121, 21)
-        Me.cmbxCameraList.TabIndex = 1
-        '
-        'pbxCameraLive
-        '
-        Me.pbxCameraLive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pbxCameraLive.InitialImage = Nothing
-        Me.pbxCameraLive.Location = New System.Drawing.Point(1062, 27)
-        Me.pbxCameraLive.Name = "pbxCameraLive"
-        Me.pbxCameraLive.Size = New System.Drawing.Size(640, 480)
-        Me.pbxCameraLive.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.pbxCameraLive.TabIndex = 0
-        Me.pbxCameraLive.TabStop = False
-        '
         'tmrSavePhoto
         '
         '
@@ -1910,34 +1779,93 @@ Partial Class frmSqueezer
         'BackgroundWorker1
         '
         '
-        'Button1
+        'lblWorkingDirectory
         '
-        Me.Button1.Location = New System.Drawing.Point(6, 109)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(49, 24)
-        Me.Button1.TabIndex = 188
-        Me.Button1.Tag = "?"
-        Me.Button1.Text = "Querry"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.lblWorkingDirectory.AutoSize = True
+        Me.lblWorkingDirectory.Location = New System.Drawing.Point(1049, 463)
+        Me.lblWorkingDirectory.Name = "lblWorkingDirectory"
+        Me.lblWorkingDirectory.Size = New System.Drawing.Size(45, 13)
+        Me.lblWorkingDirectory.TabIndex = 152
+        Me.lblWorkingDirectory.Text = "Label32"
         '
-        'Button3
+        'txtbxProjectFileName
         '
-        Me.Button3.Location = New System.Drawing.Point(61, 110)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(42, 23)
-        Me.Button3.TabIndex = 189
-        Me.Button3.Tag = "*"
-        Me.Button3.Text = "Clr"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.txtbxProjectFileName.Location = New System.Drawing.Point(1052, 510)
+        Me.txtbxProjectFileName.Name = "txtbxProjectFileName"
+        Me.txtbxProjectFileName.Size = New System.Drawing.Size(100, 20)
+        Me.txtbxProjectFileName.TabIndex = 153
+        '
+        'cmbxCameraList
+        '
+        Me.cmbxCameraList.FormattingEnabled = True
+        Me.cmbxCameraList.Location = New System.Drawing.Point(1052, 536)
+        Me.cmbxCameraList.Name = "cmbxCameraList"
+        Me.cmbxCameraList.Size = New System.Drawing.Size(121, 21)
+        Me.cmbxCameraList.TabIndex = 154
+        '
+        'cmbxCameraVideoCapabilties
+        '
+        Me.cmbxCameraVideoCapabilties.FormattingEnabled = True
+        Me.cmbxCameraVideoCapabilties.Location = New System.Drawing.Point(1052, 565)
+        Me.cmbxCameraVideoCapabilties.Name = "cmbxCameraVideoCapabilties"
+        Me.cmbxCameraVideoCapabilties.Size = New System.Drawing.Size(121, 21)
+        Me.cmbxCameraVideoCapabilties.TabIndex = 155
+        '
+        'pbxCameraLive
+        '
+        Me.pbxCameraLive.Location = New System.Drawing.Point(1052, 431)
+        Me.pbxCameraLive.Name = "pbxCameraLive"
+        Me.pbxCameraLive.Size = New System.Drawing.Size(51, 29)
+        Me.pbxCameraLive.TabIndex = 156
+        Me.pbxCameraLive.TabStop = False
+        '
+        'rdobtnRecording
+        '
+        Me.rdobtnRecording.AutoSize = True
+        Me.rdobtnRecording.Location = New System.Drawing.Point(1052, 487)
+        Me.rdobtnRecording.Name = "rdobtnRecording"
+        Me.rdobtnRecording.Size = New System.Drawing.Size(90, 17)
+        Me.rdobtnRecording.TabIndex = 157
+        Me.rdobtnRecording.TabStop = True
+        Me.rdobtnRecording.Text = "RadioButton1"
+        Me.rdobtnRecording.UseVisualStyleBackColor = True
+        '
+        'chkbxPeakTension
+        '
+        Me.chkbxPeakTension.AutoSize = True
+        Me.chkbxPeakTension.Checked = True
+        Me.chkbxPeakTension.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkbxPeakTension.Location = New System.Drawing.Point(1052, 47)
+        Me.chkbxPeakTension.Name = "chkbxPeakTension"
+        Me.chkbxPeakTension.Size = New System.Drawing.Size(111, 17)
+        Me.chkbxPeakTension.TabIndex = 158
+        Me.chkbxPeakTension.Text = "Use PeakTension"
+        Me.chkbxPeakTension.UseVisualStyleBackColor = True
+        '
+        'lnkWorkingDirectory
+        '
+        Me.lnkWorkingDirectory.AutoSize = True
+        Me.lnkWorkingDirectory.Location = New System.Drawing.Point(1056, 358)
+        Me.lnkWorkingDirectory.Name = "lnkWorkingDirectory"
+        Me.lnkWorkingDirectory.Size = New System.Drawing.Size(89, 13)
+        Me.lnkWorkingDirectory.TabIndex = 159
+        Me.lnkWorkingDirectory.TabStop = True
+        Me.lnkWorkingDirectory.Text = "WorkingDirectory"
         '
         'frmSqueezer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1730, 624)
-        Me.Controls.Add(Me.pnlCamera)
-        Me.Controls.Add(Me.TabControl1)
+        Me.ClientSize = New System.Drawing.Size(1180, 624)
+        Me.Controls.Add(Me.lnkWorkingDirectory)
+        Me.Controls.Add(Me.chkbxPeakTension)
+        Me.Controls.Add(Me.rdobtnRecording)
         Me.Controls.Add(Me.pbxCameraLive)
+        Me.Controls.Add(Me.cmbxCameraVideoCapabilties)
+        Me.Controls.Add(Me.cmbxCameraList)
+        Me.Controls.Add(Me.txtbxProjectFileName)
+        Me.Controls.Add(Me.lblWorkingDirectory)
+        Me.Controls.Add(Me.TabControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -1967,10 +1895,9 @@ Partial Class frmSqueezer
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        Me.pnlCamera.ResumeLayout(False)
-        Me.pnlCamera.PerformLayout()
         CType(Me.pbxCameraLive, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents tmrSerialPortScan As Timer
@@ -2106,29 +2033,22 @@ Partial Class frmSqueezer
     Friend WithEvents txtMARK10ForceUnits As TextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents txtMARK10ForceData As TextBox
-    Friend WithEvents pnlCamera As Panel
-    Friend WithEvents pbxCameraLive As PictureBox
-    Friend WithEvents cmbxCameraList As ComboBox
-    Friend WithEvents cmbxCameraVideoCapabilties As ComboBox
-    Friend WithEvents lnkWorkingDirectory As LinkLabel
-    Friend WithEvents Label33 As Label
-    Friend WithEvents Label32 As Label
     Friend WithEvents tmrSavePhoto As Timer
     Friend WithEvents SaveFilePhoto As SaveFileDialog
-    Friend WithEvents btnOverlay As Button
     Friend WithEvents baseImageOpenFileDialog As OpenFileDialog
     Friend WithEvents overleyImageOpenFileDialog As OpenFileDialog
-    Friend WithEvents btnStopRecord As Button
-    Friend WithEvents btnStartRecord As Button
     Friend WithEvents recordOpenFileDialog As OpenFileDialog
     Friend WithEvents recordSaveFileDialog As SaveFileDialog
-    Friend WithEvents btnSavePhoto As Button
-    Friend WithEvents rdobtnRecording As RadioButton
     Friend WithEvents FolderBrowserDialog As FolderBrowserDialog
-    Friend WithEvents lblWorkingDirectory As Label
-    Friend WithEvents lblProjectFileName As Label
-    Friend WithEvents txtbxProjectFileName As TextBox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents Button1 As Button
     Friend WithEvents Button3 As Button
+    Friend WithEvents lblWorkingDirectory As Label
+    Friend WithEvents txtbxProjectFileName As TextBox
+    Friend WithEvents cmbxCameraList As ComboBox
+    Friend WithEvents cmbxCameraVideoCapabilties As ComboBox
+    Friend WithEvents pbxCameraLive As PictureBox
+    Friend WithEvents rdobtnRecording As RadioButton
+    Friend WithEvents chkbxPeakTension As CheckBox
+    Friend WithEvents lnkWorkingDirectory As LinkLabel
 End Class

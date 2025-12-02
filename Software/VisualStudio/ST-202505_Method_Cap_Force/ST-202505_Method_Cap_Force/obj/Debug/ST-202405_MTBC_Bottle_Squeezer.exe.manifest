@@ -211,14 +211,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ST-202405_MTBC_Bottle_Squeezer.exe" size="933376">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ST-202405_MTBC_Bottle_Squeezer.exe" size="929792">
       <assemblyIdentity name="ST-202405_MTBC_Bottle_Squeezer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jO1TQmYw3h3hXkXbH6v0iXqCregl8p2Za7O6EtiMqSI=</dsig:DigestValue>
+        <dsig:DigestValue>OpqYOrr8CeDydZPvhqYkvsqUdSBNP97M3/wO1LxwCJg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

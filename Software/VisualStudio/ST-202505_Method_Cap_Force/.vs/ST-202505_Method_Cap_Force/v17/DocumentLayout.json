@@ -1,9 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\#\\Documents\\SCJ Projects\\ST-202505_Method_Cap_Force\\Software\\VisualStudio\\ST-202505_Method_Cap_Force\\",
+  "WorkspaceRootPath": "H:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202505_Method_Cap_Force\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\#\\Documents\\SCJ Projects\\ST-202505_Method_Cap_Force\\Software\\VisualStudio\\ST-202405_MTBC_Bottle_Squeezer\\ST-202405_MTBC_Bottle_Squeezer\\frmSqueezer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+      "AbsoluteMoniker": "D:0:0:{60A8D0FB-13A6-421C-8504-72796BBF8A83}|ST-202505_Method_Cap_Force\\ST-202505_Method_Cap_Force.vbproj|H:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202505_Method_Cap_Force\\st-202505_method_cap_force\\frmsqueezer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{60A8D0FB-13A6-421C-8504-72796BBF8A83}|ST-202505_Method_Cap_Force\\ST-202505_Method_Cap_Force.vbproj|solutionrelative:st-202505_method_cap_force\\frmsqueezer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60A8D0FB-13A6-421C-8504-72796BBF8A83}|ST-202505_Method_Cap_Force\\ST-202505_Method_Cap_Force.vbproj|h:\\task\\git repositories\\st-202506_method_cap_open_force\\software\\visualstudio\\st-202505_method_cap_force\\st-202505_method_cap_force\\frmsqueezer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{60A8D0FB-13A6-421C-8504-72796BBF8A83}|ST-202505_Method_Cap_Force\\ST-202505_Method_Cap_Force.vbproj|solutionrelative:st-202505_method_cap_force\\frmsqueezer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,14 +23,26 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "frmSqueezer.vb",
-              "DocumentMoniker": "C:\\Users\\#\\Documents\\SCJ Projects\\ST-202505_Method_Cap_Force\\Software\\VisualStudio\\ST-202405_MTBC_Bottle_Squeezer\\ST-202405_MTBC_Bottle_Squeezer\\frmSqueezer.vb",
-              "RelativeDocumentMoniker": "..\\ST-202405_MTBC_Bottle_Squeezer\\ST-202405_MTBC_Bottle_Squeezer\\frmSqueezer.vb",
-              "ToolTip": "C:\\Users\\#\\Documents\\SCJ Projects\\ST-202505_Method_Cap_Force\\Software\\VisualStudio\\ST-202405_MTBC_Bottle_Squeezer\\ST-202405_MTBC_Bottle_Squeezer\\frmSqueezer.vb",
-              "RelativeToolTip": "..\\ST-202405_MTBC_Bottle_Squeezer\\ST-202405_MTBC_Bottle_Squeezer\\frmSqueezer.vb",
-              "ViewState": "AgIAABUEAAAAAAAAAAAswDgEAAAIAAAAAAAAAA==",
+              "Title": "frmSqueezer.vb [Design]",
+              "DocumentMoniker": "H:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202505_Method_Cap_Force\\ST-202505_Method_Cap_Force\\frmSqueezer.vb",
+              "RelativeDocumentMoniker": "ST-202505_Method_Cap_Force\\frmSqueezer.vb",
+              "ToolTip": "H:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202505_Method_Cap_Force\\ST-202505_Method_Cap_Force\\frmSqueezer.vb [Design]",
+              "RelativeToolTip": "ST-202505_Method_Cap_Force\\frmSqueezer.vb [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-11-29T15:27:59.708Z",
+              "WhenOpened": "2025-11-29T15:37:24.761Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmSqueezer.vb",
+              "DocumentMoniker": "H:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202505_Method_Cap_Force\\ST-202505_Method_Cap_Force\\frmSqueezer.vb",
+              "RelativeDocumentMoniker": "ST-202505_Method_Cap_Force\\frmSqueezer.vb",
+              "ToolTip": "H:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202505_Method_Cap_Force\\ST-202505_Method_Cap_Force\\frmSqueezer.vb",
+              "RelativeToolTip": "ST-202505_Method_Cap_Force\\frmSqueezer.vb",
+              "ViewState": "AgIAAH8CAAAAAAAAAAAAAIoCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-11-29T15:36:45.58Z",
               "EditorCaption": ""
             }
           ]

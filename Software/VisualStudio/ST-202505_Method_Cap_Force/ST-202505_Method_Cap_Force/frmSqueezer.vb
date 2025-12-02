@@ -47,11 +47,11 @@ Public Class frmSqueezer
                 cmbxCameraList.SelectedIndex = 0
             End If
 
-            If cmbxCameraVideoCapabilties.Items.Count >= My.Settings.cmbxCameraVideoCapabilitiesIndex Then
-                cmbxCameraVideoCapabilties.SelectedIndex = My.Settings.cmbxCameraVideoCapabilitiesIndex
-            Else
-                cmbxCameraVideoCapabilties.SelectedIndex = 0
-            End If
+            'If cmbxCameraVideoCapabilties.Items.Count >= My.Settings.cmbxCameraVideoCapabilitiesIndex Then
+            '    cmbxCameraVideoCapabilties.SelectedIndex = My.Settings.cmbxCameraVideoCapabilitiesIndex
+            'Else
+            '    cmbxCameraVideoCapabilties.SelectedIndex = 0
+            'End If
         End If
 
         'restore from settings
@@ -66,9 +66,11 @@ Public Class frmSqueezer
 
         txtbxProjectFileName.Text = My.Settings.ProjectFileName
 
-
-
-        txtMARK10Data.AppendText("Elapsed MilliSeconds , Reading,  Units" + vbCrLf)
+        If chkbxPeakTension.Checked Then
+            txtMARK10Data.AppendText("Pull Count, Reading,  Units" + vbCrLf)
+        Else
+            txtMARK10Data.AppendText("Elapsed MilliSeconds , Reading,  Units" + vbCrLf)
+        End If
         txtMARK10Data.Select(txtMARK10ReceiveIn.TextLength, 0)
         txtMARK10Data.ScrollToCaret()
 
@@ -88,13 +90,13 @@ Public Class frmSqueezer
                 My.Settings.COM_PORT_DROP_DOWN = 0
                 My.Settings.Save()
             End If
-            ' cbComPorts.SelectedIndex = My.Settings.COM_PORT_DROP_DOWN
+            cbComPorts.SelectedIndex = My.Settings.COM_PORT_DROP_DOWN
 
             If My.Settings.MARK10_COM_PORT_DROP_DOWN > My.Computer.Ports.SerialPortNames.Count - 1 Then
                 My.Settings.MARK10_COM_PORT_DROP_DOWN = 0
                 My.Settings.Save()
             End If
-            ' cbMARK10ComPorts.SelectedIndex = My.Settings.MARK10_COM_PORT_DROP_DOWN
+            cbMARK10ComPorts.SelectedIndex = My.Settings.MARK10_COM_PORT_DROP_DOWN
 
         End If
 
@@ -124,48 +126,15 @@ Public Class frmSqueezer
                     Try
                         strReads = strRead.Split(",")
 
-                        lblAcutalA2DPostion.Text = strReads(1)
-                        lblDistanceA2DFromHome.Text = strReads(2)
-                        txtCurrentMillimetersFullMap.Text = (Val(strReads(3))).ToString()
+                        txtNumOfCycles.Text = (strReads(1).Replace("?", "").Replace(vbCr, ""))
 
-                        lnk_Distance.Text = (Val(strReads(4))).ToString()
-                        txtmCurrentInchesFromHome.Text = (Val(strReads(4))).ToString()
-                        txtCurrentMillimetersFromHome.Text = (Val(strReads(4))).ToString()
+                        'txtDirectDriveRange.Text = strReads(18).Replace("?", "").Replace(vbCr, "")
+                        'lnklblUnitSerialNumber.Text = "SN: " + strReads(19).Replace("?", "").Replace(vbCr, "")
 
-                        txtStartHoldTime.Text = (strReads(5).Replace("?", "").Replace(vbCr, ""))
-                        txtStopHoldTime.Text = (strReads(6).Replace("?", "").Replace(vbCr, ""))
-                        txtNumOfCycles.Text = (strReads(7).Replace("?", "").Replace(vbCr, ""))
-
-                        lblHomeA2D.Text = (strReads(8).Replace("?", "").Replace(vbCr, ""))
-                        txtStartPosition.Text = ((strReads(9).Replace("?", "").Replace(vbCr, ""))).ToString()
-
-                        lblCycleA2D.Text = (strReads(10).Replace("?", "").Replace(vbCr, ""))
-                        txtStopPosition.Text = ((strReads(11).Replace("?", "").Replace(vbCr, ""))).ToString()
-                        txtCyclePositionMillimetersFromHome.Text = ((strReads(12).Replace("?", "").Replace(vbCr, ""))).ToString()
-                        lblFullExtendA2D.Text = (strReads(13).Replace("?", "").Replace(vbCr, ""))
-                        lblFullRetractA2D.Text = (strReads(14).Replace("?", "").Replace(vbCr, ""))
-
-                        txtExtendRateDelay.Text = strReads(15).Replace("?", "").Replace(vbCr, "")
-                        '
-                        If strReads(16).Replace("?", "").Replace(vbCr, "") = "0" Then
-                            chkbxDebugMessages.CheckState = CheckState.Unchecked
-                        Else
-                            chkbxDebugMessages.CheckState = CheckState.Checked
-                        End If
-
-                        If strReads(17).Replace("?", "").Replace(vbCr, "") = "0" Then
-                            chkbxDirectDriveToTarget.CheckState = CheckState.Unchecked
-                        Else
-                            chkbxDirectDriveToTarget.CheckState = CheckState.Checked
-                        End If
-
-                        txtDirectDriveRange.Text = strReads(18).Replace("?", "").Replace(vbCr, "")
-                        lnklblUnitSerialNumber.Text = "SN: " + strReads(19).Replace("?", "").Replace(vbCr, "")
-
-                        txtmCurrentInchesFromHome.Text = lnk_Distance.Text
+                        'txtmCurrentInchesFromHome.Text = lnk_Distance.Text
                         lnk_NumOfCycles.Text = txtNumOfCycles.Text
-                        lnk_CycleHoldTime.Text = txtStopHoldTime.Text + " seconds"
-                        lnk_CycleHomeHoldTime.Text = txtStartHoldTime.Text + " seconds"
+                        'lnk_CycleHoldTime.Text = txtStopHoldTime.Text + " seconds"
+                        'lnk_CycleHomeHoldTime.Text = txtStartHoldTime.Text + " seconds"
 
                         btn_usr_Retract.Enabled = True
                         btn_usr_Extend.Enabled = True
@@ -300,6 +269,28 @@ Public Class frmSqueezer
                     Try
                         lbl_TestStatus.Text = strRead.Substring(strRead.IndexOf("Cycles Left:"))
                         lbl_TestStatus.Visible = True
+                    Catch ex As Exception
+                        MsgBox("Error 603" + vbNewLine + "Communication Error - Parsing 'Cycles Left:'  receive command" + vbNewLine + ex.Message, MsgBoxStyle.Information)
+
+                    End Try
+
+                ElseIf strRead.Contains("CLR") = True Then
+                    Try
+                        If SerialPort2.IsOpen Then
+                            SerialPort2.Write("CLR" + vbNewLine)
+                        End If
+
+                    Catch ex As Exception
+                        MsgBox("Error 603" + vbNewLine + "Communication Error - Parsing 'Cycles Left:'  receive command" + vbNewLine + ex.Message, MsgBoxStyle.Information)
+
+                    End Try
+
+                ElseIf strRead.Contains("?PT") = True Then
+                    Try
+                        If SerialPort2.IsOpen Then
+                            SerialPort2.Write("?PT" + vbNewLine)
+                        End If
+
                     Catch ex As Exception
                         MsgBox("Error 603" + vbNewLine + "Communication Error - Parsing 'Cycles Left:'  receive command" + vbNewLine + ex.Message, MsgBoxStyle.Information)
 
@@ -658,26 +649,39 @@ Public Class frmSqueezer
         btnSetFullRetracted.Visible = False
         chkCalibrate.Checked = False
 
-        If sender.tag.ToString.Contains("c") Then ' start test cycle command 
-            ' check that project file directory is valid
+        If sender.tag.ToString.Contains("k") Then ' start test cycle command 
+            'check that project file directory Is valid
             'If Directory.Exists(lblWorkingDirectory.Text + "\" + txtbxProjectFileName.Text) Then
             '    MsgBox("ERROR! That Project Already Exists." + vbNewLine + "Use a uniquie Project Name or Externally Delete this one." + vbNewLine + vbNewLine + lblWorkingDirectory.Text + "\" + txtbxProjectFileName.Text)
             '    Exit Sub
             'End If
 
             'Directory.CreateDirectory(lblWorkingDirectory.Text + "\" + txtbxProjectFileName.Text)
-            'Call btnClearMARK10_Click(Nothing, Nothing)
+            Call btnClearMARK10_Click(Nothing, Nothing)
 
-            'first entry is at zero time
-            Elapsed_msec = 0
-            chrtMARK10.Series("Force").Points.AddXY(Elapsed_msec, (txtMARK10Reading.Text))
-            txtMARK10ForceData.Text = txtMARK10Reading.Text
-            txtMARK10ForceUnits.Text = txtMARK10Units.Text
-            txtMARK10Data.AppendText(Elapsed_msec.ToString + ",  " + txtMARK10Reading.Text + ",  " + txtMARK10Units.Text + vbLf)
-            txtMARK10Data.Select(txtMARK10ReceiveIn.TextLength, 0)
-            txtMARK10Data.ScrollToCaret()
+            If chkbxPeakTension.Checked Then
+                'first entry is at zero time
+                Elapsed_msec = 0
+                'chrtMARK10.Series("Force").Points.AddXY(Elapsed_msec, (txtMARK10Reading.Text))
+                'txtMARK10ForceData.Text = txtMARK10Reading.Text
+                'txtMARK10ForceUnits.Text = txtMARK10Units.Text
+                'txtMARK10Data.AppendText(Elapsed_msec.ToString + ",  " + txtMARK10Reading.Text + ",  " + txtMARK10Units.Text + vbLf)
+                'txtMARK10Data.Select(txtMARK10ReceiveIn.TextLength, 0)
+                txtMARK10Data.ScrollToCaret()
 
-            tmrMARK10Data.Enabled = True
+            Else
+                'first entry is at zero time
+                Elapsed_msec = 0
+                chrtMARK10.Series("Force").Points.AddXY(Elapsed_msec, (txtMARK10Reading.Text))
+                txtMARK10ForceData.Text = txtMARK10Reading.Text
+                txtMARK10ForceUnits.Text = txtMARK10Units.Text
+                txtMARK10Data.AppendText(Elapsed_msec.ToString + ",  " + txtMARK10Reading.Text + ",  " + txtMARK10Units.Text + vbLf)
+                txtMARK10Data.Select(txtMARK10ReceiveIn.TextLength, 0)
+                txtMARK10Data.ScrollToCaret()
+
+                tmrMARK10Data.Enabled = True
+            End If
+
         End If
 
         If sender.tag.ToString.Contains("s") Then ' stop test cycle command 
@@ -685,6 +689,11 @@ Public Class frmSqueezer
         End If
 
         Try
+
+            If SerialPort2.IsOpen Then
+                SerialPort2.Write("CLR" + vbNewLine)
+            End If
+
             If SerialPort1.IsOpen Then
                 SerialPort1.Write(sender.tag + vbNewLine)
             End If
@@ -930,7 +939,7 @@ Public Class frmSqueezer
         ' send a querry when port is open 
         Try
             If SerialPort2.IsOpen Then
-                SerialPort2.Write("?")
+                'SerialPort2.Write("?")
             End If
 
         Catch ex As Exception
@@ -978,7 +987,7 @@ Public Class frmSqueezer
             ' send a querry when port is open 
             Try
                 If SerialPort2.IsOpen Then
-                    SerialPort2.Write("?")
+                    'SerialPort2.Write("?")
                 End If
 
             Catch ex As Exception
@@ -1014,13 +1023,17 @@ Public Class frmSqueezer
             Try
                 strRead = SerialPort2.ReadLine()
                 strReads = strRead.Split(" ")
-
-                txtMARK10Reading.Text = strReads(0)
-                txtMARK10Units.Text = strReads(1)
-                txtMARK10ReceiveIn.AppendText(strRead + vbCrLf)
+                If strReads.Length = 2 Then
+                    txtMARK10Reading.Text = strReads(0)
+                    txtMARK10Units.Text = strReads(1)
+                    txtMARK10ReceiveIn.AppendText(strRead + vbCrLf)
+                End If
+                'txtMARK10Reading.Text = strReads(0)
+                'txtMARK10Units.Text = strReads(1)
+                ' txtMARK10ReceiveIn.AppendText(strRead + vbCrLf)
 
             Catch ex As Exception
-                MsgBox("Error 602" + vbNewLine + "Communication Error" + vbNewLine + ex.Message, MsgBoxStyle.Information)
+                MsgBox("Error 702" + vbNewLine + "Communication Error - MARK10RcvData()" + vbNewLine + ex.Message, MsgBoxStyle.Information)
                 Exit Do
             End Try
         Loop While SerialPort2.BytesToRead
@@ -1032,6 +1045,17 @@ Public Class frmSqueezer
 
         txtMARK10ForceData.Text = txtMARK10Reading.Text
         txtMARK10ForceUnits.Text = txtMARK10Units.Text
+
+        If chkbxPeakTension.Checked Then
+            'first entry is at zero time
+            Elapsed_msec += 1
+            chrtMARK10.Series("Force").Points.AddXY(Elapsed_msec, (txtMARK10Reading.Text))
+            txtMARK10ForceData.Text = txtMARK10Reading.Text
+            txtMARK10ForceUnits.Text = txtMARK10Units.Text
+            txtMARK10Data.AppendText(Elapsed_msec.ToString + ",  " + txtMARK10Reading.Text + ",  " + txtMARK10Units.Text + vbLf)
+            txtMARK10Data.Select(txtMARK10ReceiveIn.TextLength, 0)
+            txtMARK10Data.ScrollToCaret()
+        End If
     End Sub
 
     Private Sub btnMARK10Clear_Click(sender As Object, e As EventArgs) Handles btnMARK10Clear.Click
@@ -1053,15 +1077,15 @@ Public Class frmSqueezer
     End Sub
 
     Private Sub btnSaveMARK10_Click(sender As Object, e As EventArgs) Handles btnSaveMARK10.Click
-        SaveFileMARK10.FileName = lblWorkingDirectory.Text + "\" + txtbxProjectFileName.Text + "\" + txtbxProjectFileName.Text + "_Force_" + Now.Ticks.ToString() + ".csv"
-        'If (SaveFileMARK10.ShowDialog() = DialogResult.OK) Then
+        SaveFileMARK10.FileName = lblWorkingDirectory.Text + "\" + txtbxProjectFileName.Text + "_Force_" + Now.Ticks.ToString() + ".csv"
+        ' If (SaveFileMARK10.ShowDialog() = DialogResult.OK) Then
         Try
                 My.Computer.FileSystem.WriteAllText(SaveFileMARK10.FileName, txtMARK10Data.Text, False)
             Catch ex As Exception
-                MsgBox("Error 601" + vbNewLine + "Save MARK10 Data to CSV File Error" + vbNewLine + ex.Message, MsgBoxStyle.Information)
+                MsgBox("Error 301" + vbNewLine + "Save MARK10 Data to CSV File Error" + vbNewLine + ex.Message, MsgBoxStyle.Information)
             End Try
 
-        ' End If
+        'End If
 
 
     End Sub
@@ -1072,7 +1096,11 @@ Public Class frmSqueezer
         chrtMARK10.Series("Force").Points.Clear()
         txtMARK10ForceData.Clear()
         txtMARK10ForceUnits.Clear()
-        txtMARK10Data.AppendText("Elapsed MilliSeconds , Reading,  Units" + vbCrLf)
+        If chkbxPeakTension.Checked Then
+            txtMARK10Data.AppendText("Pull Count, Reading,  Units" + vbCrLf)
+        Else
+            txtMARK10Data.AppendText("Elapsed MilliSeconds , Reading,  Units" + vbCrLf)
+        End If
         txtMARK10Data.Select(txtMARK10ReceiveIn.TextLength, 0)
         txtMARK10Data.ScrollToCaret()
     End Sub
@@ -1100,7 +1128,7 @@ Public Class frmSqueezer
         End Try
     End Sub
 
-    Private Sub cmbxCameraList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbxCameraList.SelectedIndexChanged
+    Private Sub cmbxCameraList_SelectedIndexChanged(sender As Object, e As EventArgs)
         Try
             If activeCamera IsNot Nothing Then
                 If activeCamera.IsRunning Then
@@ -1133,7 +1161,7 @@ Public Class frmSqueezer
         End Try
     End Sub
 
-    Private Sub cmbxCameraVideoCapabilties_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbxCameraVideoCapabilties.SelectedIndexChanged
+    Private Sub cmbxCameraVideoCapabilties_SelectedIndexChanged(sender As Object, e As EventArgs)
         Try
             If activeCamera IsNot Nothing Then
                 If activeCamera.IsRunning Then
@@ -1160,7 +1188,7 @@ Public Class frmSqueezer
         End Try
     End Sub
 
-    Private Sub lnkSavePhotoTo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWorkingDirectory.LinkClicked
+    Private Sub lnkSavePhotoTo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         FolderBrowserDialog.ShowDialog()
         lblWorkingDirectory.Text = FolderBrowserDialog.SelectedPath
         My.Settings.WorkingDirectory = lblWorkingDirectory.Text
@@ -1179,7 +1207,7 @@ Public Class frmSqueezer
 
     End Sub
 
-    Private Sub btnOverlay_Click(sender As Object, e As EventArgs) Handles btnOverlay.Click
+    Private Sub btnOverlay_Click(sender As Object, e As EventArgs)
         activeCamera.Stop()
         baseImageOpenFileDialog.Title = "Select the background image"
         baseImageOpenFileDialog.ShowDialog()
@@ -1221,13 +1249,13 @@ Public Class frmSqueezer
 
     End Sub
 
-    Private Sub btnStopRecord_Click(sender As Object, e As EventArgs) Handles btnStopRecord.Click
+    Private Sub btnStopRecord_Click(sender As Object, e As EventArgs)
         'flgRecord = False
         rdobtnRecording.Checked = False
         writter.Close()
     End Sub
 
-    Private Sub btnStartRecord_Click(sender As Object, e As EventArgs) Handles btnStartRecord.Click
+    Private Sub btnStartRecord_Click(sender As Object, e As EventArgs)
         recordSaveFileDialog.FileName = ""
         If recordSaveFileDialog.ShowDialog() = DialogResult.OK Then
             writter.Close()  ' make sure prevois one is closed
@@ -1258,7 +1286,7 @@ Public Class frmSqueezer
         Return bmp
     End Function
 
-    Private Sub btnSavePhoto_Click(sender As Object, e As EventArgs) Handles btnSavePhoto.Click
+    Private Sub btnSavePhoto_Click(sender As Object, e As EventArgs)
         Try
             SaveFilePhoto.FileName = ""
             flgPauseLiveWhileSaveDialog = True
@@ -1272,7 +1300,7 @@ Public Class frmSqueezer
         End Try
     End Sub
 
-    Private Sub txtbxProjectFileName_TextChanged(sender As Object, e As EventArgs) Handles txtbxProjectFileName.TextChanged
+    Private Sub txtbxProjectFileName_TextChanged(sender As Object, e As EventArgs)
 
         'check if folder/project already exisit and get a new project name before starting
         If Directory.Exists(lblWorkingDirectory.Text + "\" + txtbxProjectFileName.Text) Then
@@ -1390,5 +1418,14 @@ Public Class frmSqueezer
             lblStatus.Text = "Serial Port Error:  Port not open."
             DisplayNoComState()
         End Try
+    End Sub
+
+    Private Sub lnkWorkingDirectory_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWorkingDirectory.LinkClicked
+
+        FolderBrowserDialog.ShowDialog()
+        lblWorkingDirectory.Text = FolderBrowserDialog.SelectedPath
+        My.Settings.WorkingDirectory = lblWorkingDirectory.Text
+        My.Settings.Save()
+
     End Sub
 End Class
