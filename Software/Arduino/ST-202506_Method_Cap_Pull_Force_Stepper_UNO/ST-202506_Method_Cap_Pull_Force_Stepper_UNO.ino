@@ -1,3 +1,4 @@
+
 /****************************************************************************
    ST-202506 Method Cap Open Force
 
@@ -255,6 +256,7 @@ void loop() {
       {
         currentState = STATE_CARRIAGE_START;
         stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
+        cntActiveCycles = 0;
         Serial.println("Test Starting - Going to Start Carriage Cycle");
       }
 
