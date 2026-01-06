@@ -23,9 +23,9 @@ Partial Class frmSqueezer
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSqueezer))
         Me.tmrSerialPortScan = New System.Windows.Forms.Timer(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
@@ -957,19 +957,19 @@ Partial Class frmSqueezer
         '
         'chrtMARK10
         '
-        ChartArea1.Name = "MARK10ChartArea"
-        Me.chrtMARK10.ChartAreas.Add(ChartArea1)
-        Legend1.Enabled = False
-        Legend1.Name = "Legend1"
-        Me.chrtMARK10.Legends.Add(Legend1)
+        ChartArea2.Name = "MARK10ChartArea"
+        Me.chrtMARK10.ChartAreas.Add(ChartArea2)
+        Legend2.Enabled = False
+        Legend2.Name = "Legend1"
+        Me.chrtMARK10.Legends.Add(Legend2)
         Me.chrtMARK10.Location = New System.Drawing.Point(4, 2)
         Me.chrtMARK10.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtMARK10.Name = "chrtMARK10"
-        Series1.ChartArea = "MARK10ChartArea"
-        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series1.Legend = "Legend1"
-        Series1.Name = "Force"
-        Me.chrtMARK10.Series.Add(Series1)
+        Series2.ChartArea = "MARK10ChartArea"
+        Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series2.Legend = "Legend1"
+        Series2.Name = "Force"
+        Me.chrtMARK10.Series.Add(Series2)
         Me.chrtMARK10.Size = New System.Drawing.Size(380, 197)
         Me.chrtMARK10.TabIndex = 12
         Me.chrtMARK10.Text = "MARK10 Chart"
@@ -1182,7 +1182,7 @@ Partial Class frmSqueezer
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(600, 23)
         Me.Label18.TabIndex = 4
-        Me.Label18.Text = "ST-202505_Method_Cap_Pull_Force"
+        Me.Label18.Text = "ST-202506_Method_Cap_Pull_Force"
         Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lbl_Squeezer
@@ -1871,7 +1871,7 @@ Partial Class frmSqueezer
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSqueezer"
-        Me.Text = "ST-202405_MTBC_Bottle_Squeezer v06.04.25"
+        Me.Text = "ST-202406_MTBC_Bottle_Squeezer v06.04.25"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
