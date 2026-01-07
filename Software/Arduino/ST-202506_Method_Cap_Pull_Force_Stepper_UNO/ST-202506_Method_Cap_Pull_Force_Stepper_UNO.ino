@@ -181,12 +181,7 @@ void loop() {
   {
     case STATE_STATUS:
       digitalWrite(ENABLE, 1);
-      /*
-            while (Serial.available())
-            {
-              incomingByte = Serial.read();
-            }
-      */
+
       Serial.println("\r\nStatus:");
       Serial.print("\t Carriage Down Stop Sensor (brown wire): "); Serial.println(digitalRead(CARRIAGE_STOP_DN));
       Serial.print("\t Carriage Up Stop Sensor (blue wire): "); Serial.println(digitalRead(CARRIAGE_STOP_UP));
@@ -196,14 +191,14 @@ void loop() {
       Serial.print("\t Start Button (purple wire): "); Serial.println(digitalRead(START_SWITCH));
       Serial.print("\t Current State : "); Serial.println(currentState);
 
-      Serial.println(); Serial.println("Send Any key to exit status loop");
-
+      // status for Visual Studio intreface
       Serial.print("?,");
       Serial.print(numOfCycles, DEC); Serial.print(",");
       Serial.println("?");
 
+      // remove theses three commecnts to make status show until key is entered 
+      //Serial.println(); Serial.println("Send Any key to exit status loop");
       //delay(1000);
-
       //while ((Serial.available()) && (--stateCnt > 0))
       {
         incomingByte = Serial.read();
@@ -217,40 +212,8 @@ void loop() {
 
     case STATE_WAIT_FOR_START:
       digitalWrite(ENABLE, 1);
-      /*
-            while (Serial.available())
-            {
-              incomingByte = Serial.read();
-              Serial.println(incomingByte);
-
-              if (incomingByte == '?')
-                currentState = STATE_STATUS;
-
-              if (incomingByte == '>')
-              {
-                Serial.println("Carriage jog down (from serial cmd '>' )");
-                currentState = STATE_CARRIAGE_SERIAL_JOG_DN_START;
-              }
-
-              if (incomingByte == '<')
-              {
-                Serial.println("Carriage jog up (from serial cmd '<' )");
-                currentState = STATE_CARRIAGE_SERIAL_JOG_UP_START;
-              }
-
-              if (incomingByte == 'c')
-              {
-                Serial.println("Carriage Cycle Start (from serial cmd 'c' )");
-                currentState = STATE_CARRIAGE_START;
-                stateCnt = STATE_CARRIAGE_TIMEOUT_CNT;
-                Serial.println("Going to Start Carriage Cycle");
-              }
-            }
-      */
+     
       serialEvent();
-
-
-
 
       if (digitalRead(START_SWITCH) == LOW)
       {
