@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202506_Method_Cap_Force\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{60A8D0FB-13A6-421C-8504-72796BBF8A83}|ST-202506_Method_Cap_Force\\ST-202506_Method_Cap_Force.vbproj|d:\\task\\git repositories\\st-202506_method_cap_open_force\\software\\visualstudio\\st-202506_method_cap_force\\st-202506_method_cap_force\\frmsqueezer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{60A8D0FB-13A6-421C-8504-72796BBF8A83}|ST-202506_Method_Cap_Force\\ST-202506_Method_Cap_Force.vbproj|solutionrelative:st-202506_method_cap_force\\frmsqueezer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frmSqueezer.vb [Design]",
+              "DocumentMoniker": "D:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202506_Method_Cap_Force\\ST-202506_Method_Cap_Force\\frmSqueezer.vb",
+              "RelativeDocumentMoniker": "ST-202506_Method_Cap_Force\\frmSqueezer.vb",
+              "ToolTip": "D:\\TASK\\Git Repositories\\ST-202506_Method_Cap_Open_Force\\Software\\VisualStudio\\ST-202506_Method_Cap_Force\\ST-202506_Method_Cap_Force\\frmSqueezer.vb [Design]",
+              "RelativeToolTip": "ST-202506_Method_Cap_Force\\frmSqueezer.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-01-12T16:08:50.774Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
