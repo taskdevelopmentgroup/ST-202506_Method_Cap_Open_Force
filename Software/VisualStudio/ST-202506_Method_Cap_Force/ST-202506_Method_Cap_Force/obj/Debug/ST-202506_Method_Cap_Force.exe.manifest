@@ -206,7 +206,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HIk1SrX8Pi/toHCUKIdnBP1Py2DjjCXt79501LpTgQE=</dsig:DigestValue>
+        <dsig:DigestValue>pGVeiRxqV/hPdrTAFpCkdoMXYsvgczhVclL10eG99wE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -228,13 +228,13 @@
       <dsig:DigestValue>IBGzu571fmGTkBS7HQHlPSxgD4ctpUQR+xvorbKj3vs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ST-202506_Method_Cap_Force.exe.config" size="2853">
+  <file name="ST-202506_Method_Cap_Force.exe.config" size="2849">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>IhCqAbsSmlhNHZUjlwq8LY6e8JfmOihPpFKWuzCbCyE=</dsig:DigestValue>
+      <dsig:DigestValue>/tGjS+8JNGJJ9utG4OWwUUsW86BSIZpcZEgRkMc1Biw=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

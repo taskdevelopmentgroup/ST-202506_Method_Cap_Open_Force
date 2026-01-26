@@ -188,7 +188,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("""C:\Users\user\Documents""")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\user\Documents")>  _
         Public Property WorkingDirectory() As String
             Get
                 Return CType(Me("WorkingDirectory"),String)
@@ -236,7 +236,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("""Need_Project_File_Name""")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Need_Project_File_Name")>  _
         Public Property ProjectFileName() As String
             Get
                 Return CType(Me("ProjectFileName"),String)

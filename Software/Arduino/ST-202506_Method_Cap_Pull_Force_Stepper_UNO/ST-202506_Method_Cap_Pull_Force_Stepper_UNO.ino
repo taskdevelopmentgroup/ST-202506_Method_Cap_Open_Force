@@ -11,7 +11,7 @@
 #define SPEED_CARRIAGE_JOG_US   400 // microsecond delay in step
 
 #define SERIAL_CMD_JOG_CNT      200;  // how far to jog when serial command is recvd
-#define STATE_CARRIAGE_TIMEOUT_CNT  1000  // max count that a carriage state will run untilautomatically moving to next state
+#define STATE_CARRIAGE_TIMEOUT_CNT  3000  // max count that a carriage state will run untilautomatically moving to next state
 
 #define ENABLE            8   // Enable
 #define CARRIAGE_STEP     2   // X step
